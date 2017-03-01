@@ -1,0 +1,30 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+h1,h2 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+select.form-control {
+    width: initial;
+    display: initial;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#mail-content {
+    border: 1px solid #a0a0a0;
+    padding: 10px;
+}
+
+@media screen and (max-width: 767px) {
+}
+
+

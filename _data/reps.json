@@ -1,0 +1,33 @@
+[{
+    "id": 1,
+    "name": "Fairfax County", 
+    "lookupUrl": "http://www.fairfaxcounty.gov/myneighborhood/",
+    "districts": [
+        { "id": 1, "name": "At-Large", "rep": "Chairman Bulova", "type": "web", "address": "http://www.fairfaxcounty.gov/chairman/" },
+        { "id": 2, "name": "Braddock", "rep": "Supervisor Cook", "type": "email", "address": "braddock@fairfaxcounty.gov" },
+        { "id": 3, "name": "Dranesville", "rep": "Supervisor Foust", "type": "email", "address": "Dranesville@FairfaxCounty.gov" },
+        { "id": 4, "name": "Hunter Mill", "rep": "Supervisor Hudgins", "type": "email", "address": "huntermill@fairfaxcounty.gov" },
+        { "id": 5, "name": "Lee", "rep": "Supervisor McKay", "type": "web", "address": "https://www.fairfaxcounty.gov/contact/mailform.aspx?ref=1012" },
+        { "id": 6, "name": "Mason", "rep": "Vice Chairman Gross", "type": "email", "address": "mason@fairfaxcounty.gov" },
+        { "id": 7, "name": "Mount Vernon", "rep": "Supervisor Storck", "type": "email", "address": "mtvernon@fairfaxcounty.gov" },
+        { "id": 8, "name": "Providence", "rep": "Supervisor Smyth", "type": "web", "address": "https://www.fairfaxcounty.gov/contact/mailform.aspx?ref=1015" },
+        { "id": 9, "name": "Springfield", "rep": "Supervisor Herrity", "type": "email", "address": "springfield@fairfaxcounty.gov" },
+        { "id": 10, "name": "Sully", "rep": "Supervisor Smith", "type": "email", "address": "sully@fairfaxcounty.gov" }
+    ]
+},
+{
+    "id": 2,
+    "name": "Prince Wiliam County",
+    "lookupUrl": "http://gisweb.pwcgov.org/webapps/quickinfo/",
+    "districts": [
+        { "id": 1, "name": "At-Large", "rep": "Chairman Stewart", "type": "email", "address": "cstewart@pwcgov.org" },
+        { "id": 2, "name": "Gainesville", "rep": "Supervisor Candland", "type": "email", "address": "gainesville@pwcgov.org" },
+        { "id": 3, "name": "Brentsville", "rep": "Vice Chair Lawson", "type": "email", "address": "jlawson@pwcgov.org" },
+        { "id": 4, "name": "Coles", "rep": "Supervisor Nohe", "type": "email", "address": "mnohe@pwcgov.org" },
+        { "id": 5, "name": "Neabsco", "rep": "Supervisor Jenkins", "type": "email", "address": "jjenkins@pwcgov.org" },
+        { "id": 6, "name": "Occoquan", "rep": "Supervisor Anderson", "type": "email", "address": "randerson@pwcgov.org" },
+        { "id": 7, "name": "Potomac", "rep": "Supervisor Caddigan", "type": "email", "address": "mcaddigan@pwcgov.org" },
+        { "id": 8, "name": "Woodbridge", "rep": "Supervisor Principi", "type": "email", "address": "FPrincipi@pwcgov.org" }
+    ]
+}]
+
