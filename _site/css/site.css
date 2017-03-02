@@ -3,10 +3,13 @@ body {
     padding-bottom: 20px;
 }
 
-h1,h2 {
-    font-family: 'Oswald', sans-serif;
+body,input,select {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h2 {
+    color: #838078;
     text-transform: uppercase;
-    text-align: center;
 }
 
 select.form-control {
@@ -17,6 +20,10 @@ select.form-control {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.header img {
+    width: 200px;
 }
 
 #mail-content {
