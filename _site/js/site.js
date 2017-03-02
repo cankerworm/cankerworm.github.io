@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
 });
 
-$("#lookup-supervisor a").click(function() {
+$("#lookup-district a").click(function() {
     var county = getSelectedCounty();
 
     if (county) {
@@ -33,57 +33,69 @@ $("#county-select").change(function() {
 
     for (var i=0; i<county.districts.length; i++) {
         var dist = county.districts[i];
-        districtSelect.append($("<option />").val(dist.id).text(dist.name + " (" + dist.rep + ")"));
+
+        if (dist.name != "At-Large") {
+            districtSelect.append($("<option />").val(dist.id).text(dist.name + " (" + dist.rep + ")"));
+        }
     }
 });
 
 $("#district-select").change(function() {
+    var al = getSelectedAtLarge();
     var dist = getSelectedDistrict();
 
     $("#contact-supervisor-web").hide();
     $("#contact-supervisor-email").hide();
     $("#contact-supervisor-detail").hide();
+    $("#contact-chairman-web").hide();
 
     if (!dist) {
         return;
     }
+
+    var names = dist.rep;
+    var displayNames = dist.rep;
+    if (al) {
+        displayNames = al.rep + " and " + names;
+
+        if (al.type == "email") {
+            names = al.rep + " and " + names;
+        } 
+    }
+
+    var displayText = $("#mail-template").html().replace("_name_", displayNames);
+    var emailBody = $("#mail-template").html().replace("_name_", names);
+    emailBody = emailBody.replace(/<br>/g, "%0D%0A");
+    $("#mail-content").html(displayText);
 
     if (dist.type == "email") {
+        var url = "mailto:" + dist.address;
         $("#contact-supervisor-email").show();
-        $("#mailto-link").attr("href", "mailto:" + + "?cc=info@audubonva.org&Subject=Save%20the%20Caterpillars!&body=" + $("#mail-template").html());
+
+        if (al.type == "email") {
+            url += "," + al.address;
+            $("#contact-supervisor-email span").html("Use this link to email your District Chairman and Supervisor. You can review and edit the email before sending:");
+            $("#mailto-link").html("E-MAIL MY DISTRICT CHAIRMAN AND SUPERVISOR");
+        } else {
+            $("#contact-supervisor-email span").html("Use these links to contact your District Chairman and email your District Supervisor. You can review and edit the email before sending:");
+            $("#mailto-link").html("E-MAIL MY DISTRICT SUPERVISOR");
+            $("#webto-chair-link").attr('href', al.address);
+            $("#contact-chairman-web").show();
+        }
+
+        url += "?cc=info@audubonva.org";
+        url += "&Subject=Save%20the%20Caterpillars!";
+        url += "&body=" + emailBody;
+
+        $("#mailto-link").attr("href", url);
     } else {
+        $("#webto-rep-link").attr('href', dist.address);
+        $("#webto-chair-link").attr('href', al.address);
         $("#contact-supervisor-web").show();
+        $("#contact-chairman-web").show();
     }
 
-    $("#mail-content").html($("#mail-template").html().replace("_name_", dist.rep));
     $("#contact-supervisor-detail").show();
-});
-
-$("#mailto-link").click(function() {
-    var dist = getSelectedDistrict();
-    if (!dist) {
-        return;
-    }
-
-    var url = "mailto:" + dist.address;
-    url += "?cc=info@audubonva.org";
-    url += "&Subject=Save%20the%20Caterpillars!";
-    url += "&body=" + $("#mail-content").html().replace(/<br>/g, "%0D");
-
-    window.open(url);
-
-    return false;
-});
-
-$("#webto-link").click(function() {
-    var dist = getSelectedDistrict();
-    if (!dist) {
-        return;
-    }
-
-    window.open(dist.address);
-    
-    return false;
 });
 
 function getSelectedCounty() {
@@ -94,6 +106,19 @@ function getSelectedCounty() {
         if (county.id == id) {
             return county;
         }
+    }
+
+    return null;
+}
+
+function getSelectedAtLarge() {
+    var county = getSelectedCounty();
+    if (!county) {
+        return null;
+    }
+
+    if (county.districts[0].name == "At-Large") {
+        return county.districts[0];
     }
 
     return null;
