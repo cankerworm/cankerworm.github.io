@@ -74,8 +74,8 @@ $("#district-select").change(function() {
 
         if (al.type == "email") {
             url += "," + al.address;
-            $("#contact-supervisor-email span").html("Use this link to email your District Chairman and Supervisor. You can review and edit the email before sending:");
-            $("#mailto-link").html("E-MAIL MY DISTRICT CHAIRMAN AND SUPERVISOR");
+            $("#contact-supervisor-email span").html("Use this link to email your District Supervisor and your At-Large Supervisor. You can review and edit the email before sending:");
+            $("#mailto-link").html("EMAIL MY AT-LARGE SUPERVISOR AND MY DISTRICT SUPERVISOR");
         } else {
             $("#contact-supervisor-email span").html("Use these links to contact your District Chairman and email your District Supervisor. You can review and edit the email before sending:");
             $("#mailto-link").html("E-MAIL MY DISTRICT SUPERVISOR");
