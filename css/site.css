@@ -12,6 +12,10 @@ h2 {
     text-transform: uppercase;
 }
 
+b {
+    font-weight: 900;
+}
+
 select.form-control {
     width: initial;
     display: initial;

@@ -19,6 +19,8 @@ $("#lookup-district a").click(function() {
 });
 
 $("#county-select").change(function() {
+    hideAll();
+
     var county = getSelectedCounty();
     if (!county) {
         $("#lookup-district").hide();
@@ -44,59 +46,52 @@ $("#district-select").change(function() {
     var al = getSelectedAtLarge();
     var dist = getSelectedDistrict();
 
-    $("#contact-supervisor-web").hide();
-    $("#contact-supervisor-email").hide();
-    $("#contact-supervisor-detail").hide();
-    $("#contact-chairman-web").hide();
+    hideAll();
 
-    if (!dist) {
+    if (!dist || !al) {
         return;
     }
 
-    var names = dist.rep;
-    var displayNames = dist.rep;
-    if (al) {
-        displayNames = al.rep + " and " + names;
+    $("#mail-content").html(renderTemplate(al.rep + " and " + dist.rep, "Save the Caterpillars!"));
 
-        if (al.type == "email") {
-            names = al.rep + " and " + names;
-        } 
-    }
-
-    var displayText = $("#mail-template").html().replace("_name_", displayNames);
-    var emailBody = $("#mail-template").html().replace("_name_", names);
-    emailBody = emailBody.replace(/<br>/g, "%0D%0A");
-    $("#mail-content").html(displayText);
-
-    if (dist.type == "email") {
-        var url = "mailto:" + dist.address;
-        $("#contact-supervisor-email").show();
-
-        if (al.type == "email") {
-            url += "," + al.address;
-            $("#contact-supervisor-email span").html("Use this link to email your District Supervisor and your At-Large Supervisor. You can review and edit the email before sending:");
-            $("#mailto-link").html("EMAIL MY AT-LARGE SUPERVISOR AND MY DISTRICT SUPERVISOR");
-        } else {
-            $("#contact-supervisor-email span").html("Use these links to contact your District Chairman and email your District Supervisor. You can review and edit the email before sending:");
-            $("#mailto-link").html("E-MAIL MY DISTRICT SUPERVISOR");
-            $("#webto-chair-link").attr('href', al.address);
-            $("#contact-chairman-web").show();
-        }
-
-        url += "?cc=info@audubonva.org";
-        url += "&Subject=Save%20the%20Caterpillars!";
-        url += "&body=" + emailBody;
-
-        $("#mailto-link").attr("href", url);
+    if (dist.type == "email" && al.type == "email") {
+        $("#contact-1").show();
+        setMailLink("#link-1", dist.address + "," + al.address, al.rep + " and " + dist.rep);
+    } else if (dist.type == "email") {
+        $("#contact-2").show();
+        setMailLink("#link-2-1", dist.address, dist.rep);
+        $("#link-2-2").attr('href', al.address);
     } else {
-        $("#webto-rep-link").attr('href', dist.address);
-        $("#webto-chair-link").attr('href', al.address);
-        $("#contact-supervisor-web").show();
-        $("#contact-chairman-web").show();
+        $("#contact-3").show();
+        $("#link-3-1").attr('href', dist.address);
+        $("#link-3-2").attr('href', al.address);
     }
 
     $("#contact-supervisor-detail").show();
 });
+
+function renderTemplate(name, subject) {
+    var data = { name: name, subject: subject };
+    var tmpl = $.templates("#mail-template");
+    return tmpl.render(data);
+}
+
+function hideAll() {
+    $("#contact-1").hide();
+    $("#contact-2").hide();
+    $("#contact-3").hide();
+    $("#contact-supervisor-detail").hide();
+}
+
+function setMailLink(id, emails, names) {
+    var emailBody = renderTemplate(names, null);
+    emailBody = emailBody.replace(/<br>/g, "%0D%0A");
+    var url = "mailto:" + emails;
+    url += "?cc=info@audubonva.org";
+    url += "&Subject=Save%20the%20Caterpillars!";
+    url += "&body=" + emailBody;
+    $(id).attr("href", url);
+}
 
 function getSelectedCounty() {
     var id = $("#county-select").val();
