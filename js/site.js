@@ -52,7 +52,7 @@ $("#district-select").change(function() {
         return;
     }
 
-    $("#mail-content").html(renderTemplate(al.rep + " and " + dist.rep, "Save the Caterpillars!"));
+    $("#mail-content").html(linkify(renderTemplate(al.rep + " and " + dist.rep, "Save the Caterpillars!")));
 
     if (dist.type == "email" && al.type == "email") {
         $("#contact-1").show();
@@ -137,3 +137,7 @@ function getSelectedDistrict() {
     return null;
 }
 
+function linkify(text) {
+    var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(exp,"<a target='_blank' href='$1'>$1</a>"); 
+}
